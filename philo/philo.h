@@ -6,7 +6,7 @@
 /*   By: mait-aad <mait-aad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 13:26:58 by mait-aad          #+#    #+#             */
-/*   Updated: 2022/05/27 19:56:41 by mait-aad         ###   ########.fr       */
+/*   Updated: 2022/05/29 14:45:13 by mait-aad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_phi_d
 	int				there_is_e_l;
 	int				set_e_l;
 	pthread_mutex_t	chopstick;
-	pthread_mutex_t	mu;
 	struct s_phi_d	*ph;
 	long			current_time;
 	long			last_time_eat;
