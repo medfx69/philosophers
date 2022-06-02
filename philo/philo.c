@@ -6,7 +6,7 @@
 /*   By: mait-aad <mait-aad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 13:20:18 by mait-aad          #+#    #+#             */
-/*   Updated: 2022/05/29 14:45:45 by mait-aad         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:04:58 by mait-aad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,13 @@ void	eating(t_phi_d *p)
 	usleep(30);
 	pthread_mutex_lock(&p->ph[p->r_fork].chopstick);
 	pthread_mutex_lock(&p->ph[p->l_fork].chopstick);
-	printf("\033[0;33m%ldms (%d) takse fork (%d)\n",
-		p_time_now() - p->current_time, p->p_n +1, p->r_fork +1);
-	printf("\033[0;33m%ldms (%d) takse fork (%d)\n",
-		p_time_now() - p->current_time, p->p_n +1, p->l_fork +1);
-	printf("\033[0;32m%ldms (%d) is eating \n",
-		p_time_now() - p->current_time, p->p_n +1);
+	printing("\033[0;32m", p, "taken a fork");
+	printing("\033[0;33m", p, "taken a fork");
+	printing("\033[0;34m", p, "is eating");
 	if (p->there_is_e_l == 1 && p->set_e_l > 0)
 		p->set_e_l = p->set_e_l - 1;
 	p->last_time_eat = p_time_now() - p->current_time;
 	p_sleep(p->e_t);
-	printf("\033[0;35m%ldms (%d) leaves fork (%d)\n",
-		p_time_now() - p->current_time, p->p_n +1, p->r_fork +1);
-	printf("\033[0;35m%ldms (%d) leaves fork (%d)\n",
-		p_time_now() - p->current_time, p->p_n +1, p->l_fork +1);
 	pthread_mutex_unlock(&p->ph[p->r_fork].chopstick);
 	pthread_mutex_unlock(&p->ph[p->l_fork].chopstick);
 }
@@ -81,9 +74,11 @@ int	threads_creating(t_phi_d *ph, int num)
 
 int	manag(t_phi_d *ph, int num)
 {
-	int	i;
+	int				i;
+	pthread_mutex_t	mu;
 
 	i = 0;
+	pthread_mutex_init(&mu, NULL);
 	while (i < num)
 	{
 		if (pthread_mutex_init(&ph[i++].chopstick, NULL))
@@ -104,21 +99,23 @@ int	manag(t_phi_d *ph, int num)
 
 void	philos(t_phi_d	*ph_data, int phi_n)
 {
+	pthread_mutex_t	*mu;
 	pthread_t		*ph_id;
-	pthread_mutex_t	mu;
 	int				i;
 
 	ph_id = (pthread_t *)malloc(phi_n * sizeof(pthread_t) + 1);
+	mu = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!ph_id)
 		return ;
 	i = -1;
-	pthread_mutex_init(&mu, NULL);
+	pthread_mutex_init(mu, NULL);
 	while (phi_n > ++i)
 	{
 		ph_data[i].last_time_eat = 0;
 		ph_data[i].current_time = p_time_now();
 		ph_data[i].philo_id = ph_id[i];
 		ph_data[i].ph = ph_data;
+		ph_data[i].mu = mu;
 	}
 	manag(ph_data, phi_n);
 	free(ph_id);

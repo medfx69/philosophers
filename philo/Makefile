@@ -1,6 +1,6 @@
 NAME=philo
 CC=gcc
-FLAGS=-Wall -Wextra -Werror -lpthread
+FLAGS=-Wall -Wextra -Werror
 RM=rm -f
 SRC = philo.c util.c util_1.c main.c
 all : $(NAME)

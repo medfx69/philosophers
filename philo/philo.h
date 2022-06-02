@@ -6,7 +6,7 @@
 /*   By: mait-aad <mait-aad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 13:26:58 by mait-aad          #+#    #+#             */
-/*   Updated: 2022/05/29 14:45:13 by mait-aad         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:59:29 by mait-aad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_phi_d
 	int				there_is_e_l;
 	int				set_e_l;
 	pthread_mutex_t	chopstick;
+	pthread_mutex_t	*mu;
 	struct s_phi_d	*ph;
 	long			current_time;
 	long			last_time_eat;
@@ -44,5 +45,6 @@ void	p_sleep(int i);
 long	p_time_now(void);
 void	sleeping(t_phi_d *p);
 void	philos(t_phi_d	*ph_data, int phi_n);
+void	printing(char	*color, t_phi_d	*p, char *message);
 
 #endif

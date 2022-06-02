@@ -6,7 +6,7 @@
 /*   By: mait-aad <mait-aad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:21:09 by mait-aad          #+#    #+#             */
-/*   Updated: 2022/05/29 14:04:50 by mait-aad         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:35:42 by mait-aad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	check_if_dead(t_phi_d	*ph_data)
 	if (p_time_now() - ph_data->current_time
 		- ph_data->last_time_eat >= ph_data->d_t)
 	{
+		pthread_mutex_lock(ph_data->mu);
 		printf("\x1b[31m%ldms  %d died\n",
 			p_time_now() - ph_data->current_time, ph_data->p_n + 1);
 		return (-1);

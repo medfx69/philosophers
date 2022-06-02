@@ -6,7 +6,7 @@
 /*   By: mait-aad <mait-aad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 19:55:40 by mait-aad          #+#    #+#             */
-/*   Updated: 2022/05/28 11:12:58 by mait-aad         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:15:19 by mait-aad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_negativ(char **av, int ac)
 	return (0);
 }
 
-void	data_treting(t_phi_d	*ph_data, char	**av, int ac)
+void	data_treating(t_phi_d	*ph_data, char	**av, int ac)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ int	main(int ac, char	**av)
 		if (!ph_data)
 			return (0);
 		i = -1;
-		data_treting(ph_data, av, ac);
+		data_treating(ph_data, av, ac);
 		philos(ph_data, ft_atoi(av[1]));
 		return (0);
 	}
